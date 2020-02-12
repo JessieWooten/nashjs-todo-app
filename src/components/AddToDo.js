@@ -69,7 +69,7 @@ const AddToDo = ({ addToDo, toDos }) => {
                         {/* onBlur here fixes an issue in iOS13 where the touch targets dont reset properly after the webview moves up for the keyboard and then back down once the keyboard closes. 
                         Manually setting the scroll resets the view and keeps everything touching correctly. */}
                         <label>Description</label>   
-                        <textarea name="title" id="newtodo-title" value={description} onChange={(e) => setDescription(e.target.value)} onBlur={window.scrollTo(0,0)}/>
+                        <textarea name="title" id="newtodo-description" value={description} onChange={(e) => setDescription(e.target.value)} onBlur={window.scrollTo(0,0)}/>
                         <label>Priority</label>
                         <div className="flex-left">
                             <label className="priority">
