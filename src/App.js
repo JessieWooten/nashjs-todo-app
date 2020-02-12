@@ -57,7 +57,7 @@ function App() {
         <h1 className="teal">NashJS ToDo Tracker</h1>
       </header>
       {/* TODO LIST OR LOADER */}
-      { toDos === undefined ? <Loader /> : <ToDoList toDos={toDos} setSelectedToDoIndex={setSelectedToDoIndex}/> }
+      { Array.isArray(toDos) ? <ToDoList toDos={toDos} setSelectedToDoIndex={setSelectedToDoIndex}/> : <Loader /> }
 
       {/* NEW TODO COMPONENT */}
       <AddToDoBar addToDo={addToDo} toDos={toDos} />
