@@ -47,7 +47,7 @@ function App() {
     tempToDos.splice(index, 1)
      setToDos(tempToDos)
      // SAVE UPDATED TODOS TO THE WRAPPER
-     if(window.nativeInterface) NativeStorage.setItem('toDos', encodeURIComponent(JSON.stringify(tempToDos)));
+     if(window.nativeInterface) NativeStorage.setItem('toDos', encodeURIComponent(JSON.stringify(tempToDos.length ? tempToDos : [])));
   }
 
 
