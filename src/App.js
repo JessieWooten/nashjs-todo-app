@@ -11,25 +11,26 @@ import Loader from './components/Loader'
 function App() {
   const [toDos, setToDos] = useState(undefined);
   const [selectedToDoIndex, setSelectedToDoIndex] = useState(-1);
-  //Set a handler function on the window to accept data from the native wrapper
+  //SET A HNDLER FUNCTION ON THE WINDOW TO ACCEPT MESSAGES FROM THE WRAPPER
   window.handleIncomingWrapperMessages = function(str) {
     const data = JSON.parse(str);
-    console.log("[handleIncomingWrapperMessages] incoming message: ", data);
+    console.log("%c[handleIncomingWrapperMessages] <- incoming message: ", 'color: darkcyan;', data);
     switch(data.type) {
       case 'toDos': 
         const incomingToDos = typeof data.payload === 'string' ? JSON.parse(decodeURIComponent(data.payload)) : data.payload;
         setToDos(Array.isArray(incomingToDos) ? incomingToDos : []);
         break;
       default: 
-        console.log('[handleIncomingWrapperMessages] Didnt fit case: ', data);
+        console.log('%c[handleIncomingWrapperMessages] Didnt fit case: ', 'background: red; color: white;', data);
     }
   }
-  //request todos when the app launches
+  //REQUEST TODOS FROM THE WRAPPER WHEN JS APP LAUNCHES
   if(toDos === undefined && window.nativeInterface) NativeStorage.getItem('toDos')
 
   function addToDo(toDo) {
     const newToDos = [...toDos, { isComplete: false, ...toDo}]
     setToDos(newToDos);
+    // SAVE UPDATED TODOS TO THE WRAPPER
     if(window.nativeInterface) {
       NativeStorage.setItem('toDos', encodeURIComponent(JSON.stringify(newToDos)));
     }
@@ -38,13 +39,14 @@ function App() {
     const newToDos = [...toDos];
     newToDos[selectedToDoIndex] = updatedToDo;
     setToDos(newToDos);
-
+    // SAVE UPDATED TODOS TO THE WRAPPER
     if(window.nativeInterface) NativeStorage.setItem('toDos', encodeURIComponent(JSON.stringify(newToDos)));
   }
   function deleteToDo (index){
     let tempToDos = [...toDos]
     tempToDos.splice(index, 1)
      setToDos(tempToDos)
+     // SAVE UPDATED TODOS TO THE WRAPPER
      if(window.nativeInterface) NativeStorage.setItem('toDos', encodeURIComponent(JSON.stringify(tempToDos)));
   }
 
@@ -54,14 +56,14 @@ function App() {
       <header>
         <h1 className="teal">NashJS ToDo Tracker</h1>
       </header>
-      {
-        toDos === undefined ? 
-         <Loader /> :
-            <ToDoList toDos={toDos} setSelectedToDoIndex={setSelectedToDoIndex}/>
-      }
+      {/* TODO LIST OR LOADER */}
+      { toDos === undefined ? <Loader /> : <ToDoList toDos={toDos} setSelectedToDoIndex={setSelectedToDoIndex}/> }
+
+      {/* NEW TODO COMPONENT */}
       <AddToDoBar addToDo={addToDo} toDos={toDos} />
-      {selectedToDoIndex > -1 && 
-        <SelectedToDoModal 
+
+      {/* TODO MODAL */}
+      {selectedToDoIndex > -1 && <SelectedToDoModal 
           toDo={toDos[selectedToDoIndex]} 
           close={() => setSelectedToDoIndex(-1)}
           updateToDo={updateToDo}

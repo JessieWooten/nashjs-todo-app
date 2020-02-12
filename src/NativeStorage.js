@@ -1,12 +1,18 @@
 
     function setItem(key, value) {
-        window.nativeInterface.setUserDefaultItem(JSON.stringify({ key, value }));
+        const message = JSON.stringify({ key, value });
+        console.log("%c[handleOutgoingWrapperMessages] -> outgoing setItem: ", 'color: darkcyan', message);
+        window.nativeInterface.setUserDefaultItem(message);
     }
     function getItem(key) {
-        window.nativeInterface.getUserDefaultItem(JSON.stringify({ key }))
+        const message = JSON.stringify({ key });
+        console.log("%c[handleOutgoingWrapperMessages] -> outgoing getItem: ", 'color: darkcyan', message);
+        window.nativeInterface.getUserDefaultItem(message);
     }
     function removeItem(key) {
-        window.nativeInterface.removeUserDefaultItem(JSON.stringify({ key }))
+        const message = JSON.stringify({ key });
+        console.log("%c[handleOutgoingWrapperMessages] -> outgoing removeItem: ", 'color: darkcyan', message);
+        window.nativeInterface.removeUserDefaultItem(message);
     }
 
 
