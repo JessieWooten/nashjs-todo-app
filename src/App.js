@@ -6,6 +6,7 @@ import ToDoList from './components/ToDoList';
 import AddToDoBar from './components/AddToDo';
 import SelectedToDoModal from './components/SelectedToDoModal'
 import Loader from './components/Loader'
+// import testToDos from './testTodos';
 
 function App() {
   const [toDos, setToDos] = useState(undefined);
