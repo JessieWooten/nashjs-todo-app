@@ -1,7 +1,7 @@
 const testTodos = [{
   isComplete: false,
-  title: "Finish this app",
-  description: "Hello This is my description.",
+  title: "Finish this JS app",
+  description: "JS is awesome!",
   priority: 1
 },{
   isComplete: false,
