@@ -12,7 +12,8 @@ function App() {
   const [toDos, setToDos] = useState(undefined);
   const [selectedToDoIndex, setSelectedToDoIndex] = useState(-1);
   //SET A HNDLER FUNCTION ON THE WINDOW TO ACCEPT MESSAGES FROM THE WRAPPER
-  window.handleIncomingWrapperMessages = function(str) {
+  if(window.handleIncomingWrapperMessages === undefined) {
+    window.handleIncomingWrapperMessages = function(str) {
     const data = JSON.parse(str);
     console.log("%c[handleIncomingWrapperMessages] <- incoming message: ", 'color: darkcyan;', data);
     switch(data.type) {
@@ -24,6 +25,7 @@ function App() {
         console.log('%c[handleIncomingWrapperMessages] Didnt fit case: ', 'background: red; color: white;', data);
     }
   }
+}
   //REQUEST TODOS FROM THE WRAPPER WHEN JS APP LAUNCHES
   if(toDos === undefined && window.nativeInterface) NativeStorage.getItem('toDos')
 
